@@ -21,6 +21,10 @@ const theme = {
       default: '#F5F5DC', // Creamy off-white for the background
       grey: '#D3D3D3', // Grey for the login background
     },
+    form: {
+      background: '#000000', // Black color for form background
+      text: '#C2185B', // Dark Pink for text and button color
+    },
   },
 };
 
@@ -106,8 +110,8 @@ export default function LoginPage() {
 
       {/* Main Content */}
       <Container maxWidth="sm" sx={{ mt: 5 }}>
-        <Paper elevation={3} sx={{ p: 4, backgroundColor: theme.palette.background.grey }}>
-          <Typography variant="h4" gutterBottom>
+        <Paper elevation={3} sx={{ p: 4, backgroundColor: theme.palette.form.background, borderRadius: '16px' }}>
+          <Typography variant="h4" gutterBottom sx={{ color: theme.palette.form.text }}>
             Login
           </Typography>
           {/* Login Form */}
@@ -119,32 +123,98 @@ export default function LoginPage() {
                 variant="outlined"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                sx={{
+                  backgroundColor: theme.palette.background.grey,
+                  borderRadius: '12px', // Rounded corners for the textfield
+                  '& .MuiInputLabel-root': {
+                    fontWeight: 'bold', // Bold label
+                    color: theme.palette.form.text, // White label color when focused
+                  },
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: theme.palette.form.text, // Dark pink border color
+                    },
+                    '&:hover fieldset': {
+                      borderColor: theme.palette.form.text, // Dark pink border color on hover
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: theme.palette.form.text, // Dark pink border color when focused
+                    },
+                  },
+                  '& .MuiInputBase-input': {
+                    fontWeight: 'bold', // Bold text inside the field
+                    color: theme.palette.form.background, // Dark pink text inside the field
+                  },
+                  '& .MuiInputBase-input::placeholder': {
+                    color: theme.palette.form.text, // Dark pink placeholder color
+                  },
+                }}
               />
-            </Box>
+               </Box>
             <Box sx={{ mb: 2 }}>
-              <TextField
+            <TextField
                 fullWidth
                 label="Password"
                 type="password"
                 variant="outlined"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-              />
+                placeholder="Enter your password"
+                sx={{
+                backgroundColor: theme.palette.background.grey,
+                borderRadius: '12px', // Rounded corners for the textfield
+                '& .MuiInputLabel-root': {
+                    fontWeight: 'bold', // Bold label
+                    color: theme.palette.form.text
+                },
+                '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                    borderColor: theme.palette.form.text, // Dark pink border color
+                    },
+                    '&:hover fieldset': {
+                    borderColor: theme.palette.form.text, // Dark pink border color on hover
+                    },
+                    '&.Mui-focused fieldset': {
+                    borderColor: theme.palette.form.text, // Dark pink border color when focused
+                    },
+                },
+                '& .MuiInputBase-input': {
+                    fontWeight: 'bold', // Bold text inside the field
+                    color: theme.palette.form.background, // Dark pink text inside the field
+                },
+                '& .MuiInputBase-input::placeholder': {
+                    color: theme.palette.form.text, // Dark pink placeholder color
+                },
+                }}
+            />
             </Box>
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ backgroundColor: theme.palette.primary.main }}
+              sx={{ backgroundColor: theme.palette.form.text }}
             >
               Login
             </Button>
           </form>
           <Box sx={{ mt: 2, textAlign: 'center' }}>
-            <Typography variant="body1">
+            <Typography variant="body1" sx={{ color: '#C2185B' }}>
               Don't have an account?{' '}
               <Link href="/register" passHref>
-                <Button variant="text">Register Here</Button>
+                <Button
+                  variant="text"
+                  sx={{
+                    fontWeight: 'bold', // Bold text for "Register Here"
+                    color: '#FFFFFF', // White text color by default
+                    '&:hover': {
+                      color: theme.palette.text.hover, // Dark pink color on hover
+                    },
+                  }}
+                >
+                  Register Here
+                </Button>
               </Link>
             </Typography>
           </Box>

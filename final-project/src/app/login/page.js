@@ -30,14 +30,43 @@ const theme = {
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [pass, setPassword] = useState('');
   const [open, setOpen] = useState(false); // State for burger menu open/close
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add login logic here (e.g., API call)
-    console.log('Login attempted with email:', email, 'and password:', password);
+
+    // Check if email and password are provided
+    if (!email || !pass) {
+      alert("Please enter both email and password.");
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, pass }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Handle successful login (e.g., redirect user to the home page)
+        alert('Login successful!');
+        // Redirect or handle success logic here
+      } else {
+        // Handle error from the backend
+        alert(data.error || 'Login failed');
+      }
+    } catch (error) {
+      // Handle network or server error
+      console.error(error);
+      alert('An error occurred. Please try again later.');
+    }
   };
 
   // Function to toggle the burger menu
@@ -151,43 +180,43 @@ export default function LoginPage() {
                   },
                 }}
               />
-               </Box>
+            </Box>
             <Box sx={{ mb: 2 }}>
-            <TextField
+              <TextField
                 fullWidth
                 label="Password"
                 type="password"
                 variant="outlined"
-                value={password}
+                value={pass}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 sx={{
-                backgroundColor: theme.palette.background.grey,
-                borderRadius: '12px', // Rounded corners for the textfield
-                '& .MuiInputLabel-root': {
+                  backgroundColor: theme.palette.background.grey,
+                  borderRadius: '12px', // Rounded corners for the textfield
+                  '& .MuiInputLabel-root': {
                     fontWeight: 'bold', // Bold label
-                    color: theme.palette.form.text
-                },
-                '& .MuiOutlinedInput-root': {
+                    color: theme.palette.form.text,
+                  },
+                  '& .MuiOutlinedInput-root': {
                     '& fieldset': {
-                    borderColor: theme.palette.form.text, // Dark pink border color
+                      borderColor: theme.palette.form.text, // Dark pink border color
                     },
                     '&:hover fieldset': {
-                    borderColor: theme.palette.form.text, // Dark pink border color on hover
+                      borderColor: theme.palette.form.text, // Dark pink border color on hover
                     },
                     '&.Mui-focused fieldset': {
-                    borderColor: theme.palette.form.text, // Dark pink border color when focused
+                      borderColor: theme.palette.form.text, // Dark pink border color when focused
                     },
-                },
-                '& .MuiInputBase-input': {
+                  },
+                  '& .MuiInputBase-input': {
                     fontWeight: 'bold', // Bold text inside the field
                     color: theme.palette.form.background, // Dark pink text inside the field
-                },
-                '& .MuiInputBase-input::placeholder': {
+                  },
+                  '& .MuiInputBase-input::placeholder': {
                     color: theme.palette.form.text, // Dark pink placeholder color
-                },
+                  },
                 }}
-            />
+              />
             </Box>
 
             <Button

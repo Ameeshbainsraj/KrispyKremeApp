@@ -2,9 +2,11 @@
 
 // Importing necessary components from MUI
 import { useState } from 'react';
-import { Button, AppBar, Toolbar, Typography, Box, IconButton } from '@mui/material'; // Added IconButton here
+import { Button, AppBar, Toolbar, Typography, Box, IconButton, CardMedia } from '@mui/material'; 
 import MenuIcon from '@mui/icons-material/Menu';  
 import Link from 'next/link';  
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 // Custom theme for the page
 const theme = {
@@ -25,9 +27,23 @@ const theme = {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false); 
+  const [currentIndex, setCurrentIndex] = useState(0);  // State to track the current image
+
+  const images = [
+    'img.jpeg'
+  ];
+  
 
   const handleMenuClick = () => {
     setOpen(!open); 
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length); // Loop back to first image
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length); // Loop to last image
   };
 
   return (
@@ -58,8 +74,8 @@ export default function Navbar() {
                 color="inherit" 
                 sx={{ 
                   color: theme.palette.text.secondary, 
-                  fontWeight: 'bold',  // Bold text for navbar links
-                  fontSize: '18px',  // Larger text size
+                  fontWeight: 'bold',  
+                  fontSize: '18px',  
                   '&:hover': {
                     color: theme.palette.text.hover,
                   },
@@ -73,8 +89,8 @@ export default function Navbar() {
                 color="inherit" 
                 sx={{ 
                   color: theme.palette.text.secondary, 
-                  fontWeight: 'bold',  // Bold text for navbar links
-                  fontSize: '18px',  // Larger text size
+                  fontWeight: 'bold',  
+                  fontSize: '18px',  
                   '&:hover': {
                     color: theme.palette.text.hover,
                   },
@@ -88,8 +104,8 @@ export default function Navbar() {
                 color="inherit" 
                 sx={{ 
                   color: theme.palette.text.secondary, 
-                  fontWeight: 'bold',  // Bold text for navbar links
-                  fontSize: '18px',  // Larger text size
+                  fontWeight: 'bold',  
+                  fontSize: '18px',  
                   '&:hover': {
                     color: theme.palette.text.hover,
                   },
@@ -103,8 +119,8 @@ export default function Navbar() {
                 color="inherit" 
                 sx={{ 
                   color: theme.palette.text.secondary, 
-                  fontWeight: 'bold',  // Bold text for navbar links
-                  fontSize: '18px',  // Larger text size
+                  fontWeight: 'bold',  
+                  fontSize: '18px',  
                   '&:hover': {
                     color: theme.palette.text.hover,
                   },
@@ -118,8 +134,8 @@ export default function Navbar() {
                 color="inherit" 
                 sx={{ 
                   color: theme.palette.text.secondary, 
-                  fontWeight: 'bold',  // Bold text for navbar links
-                  fontSize: '18px',  // Larger text size
+                  fontWeight: 'bold',  
+                  fontSize: '18px',  
                   '&:hover': {
                     color: theme.palette.text.hover,
                   },
@@ -131,6 +147,61 @@ export default function Navbar() {
           </Box>
         </Toolbar>
       </AppBar>
+      
+      {/* Image Slider Section */}
+      <Box sx={{ 
+        position: 'relative', 
+        width: '100%', 
+        height: '610px', 
+        backgroundColor: 'white', 
+        padding: '0 20px', // Adding padding to avoid images being too close to the edge
+      }}>
+        <IconButton 
+          sx={{ 
+            position: 'absolute', 
+            top: '50%', 
+            left: '2%', 
+            transform: 'translateY(-50%)', 
+            zIndex: 1, 
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            '&:hover': {
+              backgroundColor: 'rgba(0,0,0,0.7)',
+            }
+          }} 
+          onClick={handlePrev}>
+          <ArrowBackIcon sx={{ color: 'white' }} />
+        </IconButton>
+
+        <CardMedia 
+          component="img" 
+          sx={{ 
+            width: 'calc(100% - 40px)', // Ensure the image is within the padding
+            height: '100%', 
+            objectFit: 'cover', 
+            transition: 'transform 0.5s ease', 
+            transform: `translateX(-${currentIndex * 100}%)` 
+          }} 
+          image={images[currentIndex]} 
+          alt="Slider Image"
+        />
+
+        <IconButton 
+          sx={{ 
+            position: 'absolute', 
+            top: '50%', 
+            right: '2%', 
+            transform: 'translateY(-50%)', 
+            zIndex: 1, 
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            '&:hover': {
+              backgroundColor: 'rgba(0,0,0,0.7)',
+            }
+          }} 
+          onClick={handleNext}>
+          <ArrowForwardIcon sx={{ color: 'white' }} />
+        </IconButton>
+      </Box>
+
       <Box sx={{ padding: 3, color: theme.palette.text.primary }}>
         <Typography variant="h4">Welcome to KrispyKreme!</Typography>
       </Box>

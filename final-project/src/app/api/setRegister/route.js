@@ -1,53 +1,44 @@
-import dbConnect from '../../../lib/dbConnect';  // Ensure correct import path
-import bcrypt from 'bcryptjs';
+const { MongoClient } = require("mongodb");
 
-export default async function handler(req, res) {
-  if (req.method === 'POST') {
+export async function GET(req) {
+    console.log("In the API page for adding a new registration");
+
+    const url = "mongodb+srv://KK_DB:pass@kkdb.hwqqo.mongodb.net/?retryWrites=true&w=majority&appName=KKDB";
+    const client = new MongoClient(url, { serverSelectionTimeoutMS: 30000 });
+    const dbName = "KK_DB";
+
     try {
-      // Extract fields from request body
-      const { fullName, email, confirmEmail, password, confirmPassword } = req.body;
+        const { searchParams } = new URL(req.url);
+        const email = searchParams.get('email');
+        const pass = searchParams.get('password');
+        const username = searchParams.get('username');
 
-      // Validate input fields
-      if (!fullName || !email || !confirmEmail || !password || !confirmPassword) {
-        return res.status(400).json({ success: false, message: 'Please fill all fields.' });
-      }
+        console.log("Received data:", { username, email, pass });
 
-      // Validate email and confirm email match
-      if (email !== confirmEmail) {
-        return res.status(400).json({ success: false, message: 'Email and confirm email do not match.' });
-      }
+        // Connect to the database
+        await client.connect();
+        console.log("Connected successfully to MongoDB server");
 
-      // Validate password and confirm password match
-      if (password !== confirmPassword) {
-        return res.status(400).json({ success: false, message: 'Password and confirm password do not match.' });
-      }
+        const db = client.db(dbName);
+        const collection = db.collection("register");
 
-      // Connect to the database
-      const db = await dbConnect();
+        // Insert the new user
+        const result = await collection.insertOne({ username, email, password: pass });
+        console.log("Document inserted:", result);
 
-      // Check if the email already exists
-      const existingUser = await db.collection('users').findOne({ email });
-      if (existingUser) {
-        return res.status(400).json({ success: false, message: 'Email already exists.' });
-      }
+        // Send a success response
+        return new Response(JSON.stringify({ success: true, message: "User registered successfully!" }), {
+            headers: { "Content-Type": "application/json" },
+        });
+    } catch (err) {
+        console.error("Error occurred:", err.message);
 
-      // Hash the password before saving it
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      // Insert new user into 'users' collection
-      const newUser = await db.collection('users').insertOne({
-        fullName,  // Directly store the fullName
-        email,  // Directly store the email
-        password: hashedPassword,  // Store the hashed password
-      });
-
-      // Return success response
-      return res.status(201).json({ success: true, message: 'User registered successfully!' });
-    } catch (error) {
-      console.error('Error registering user:', error);
-      return res.status(500).json({ success: false, message: 'Server error.' });
+        // Send an error response
+        return new Response(JSON.stringify({ success: false, error: err.message }), {
+            status: 500,
+            headers: { "Content-Type": "application/json" },
+        });
+    } finally {
+        await client.close(); // Ensure the client is always closed
     }
-  } else {
-    return res.status(405).json({ success: false, message: 'Method Not Allowed' });
-  }
 }

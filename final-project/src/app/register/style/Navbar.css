@@ -1,0 +1,47 @@
+/* Navbar container */
+nav {
+    background-color: #333; /* Dark background */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; /* Space between links */
+    align-items: center;
+    color: white;
+  }
+  
+  /* Unordered list inside the navbar */
+  nav ul {
+    list-style-type: none; /* Remove bullet points */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Horizontal layout */
+    gap: 15px; /* Spacing between links */
+  }
+  
+  /* List items in the navbar */
+  nav ul li {
+    display: inline;
+  }
+  
+  /* Links styling */
+  nav ul li a {
+    color: white; /* Link text color */
+    text-decoration: none; /* Remove underline */
+    padding: 8px 12px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Hover effect for links */
+  nav ul li a:hover {
+    background-color: #555; /* Slightly lighter background */
+    color: #ddd; /* Light grey color */
+    border-radius: 4px; /* Rounded edges */
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    nav ul {
+      flex-direction: column; /* Stack items vertically */
+      align-items: center;
+    }
+  }
+  

@@ -32,7 +32,7 @@ export default function LoginForm({ onResponseMessage, onRedirect }) {
       const data = await response.json();
 
       if (data.success) {
-        onRedirect("../mainRegister");
+        onRedirect("../customer");
       } else {
         onResponseMessage(`Error: ${data.error}`);
       }

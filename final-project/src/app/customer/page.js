@@ -1,10 +1,10 @@
 "use client";  // Mark the component as a client component
 
 import React, { useEffect, useState } from 'react';
-import Navbar from './components/Navbar';
+import Navbar from '../TEMPLATES/NAVBAR/Navbar';
 import ImageSlider from './components/ImageSlider';
 import ProductCard from './components/ProductCard';
-import styles from './styles.module.css'; // Correct CSS import
+import styles from './styles/styles.module.css'; // Correct CSS import
 
 // Import CartProvider to wrap the page
 import { CartProvider } from '../view_cart/components/CartContext';  // Correct CartContext import

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import { IconButton, Drawer, Box } from '@mui/material';
-import styles from '../styles/navbarStyles';
+import styles from '../../customer/styles/navbarStyles';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);

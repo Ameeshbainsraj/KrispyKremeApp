@@ -2,6 +2,8 @@
 
 import { getCart, clearCart } from "../mainCart/utils/storage";
 import { useState, useEffect } from "react";
+import Navbar from '../TEMPLATES/NAVBAR/Navbar'; // Import the Navbar component
+import styles from './style/cartPage.module.css'; // Import the CSS file (make sure the path is correct)
 
 export default function CartPage() {
   const [cart, setCart] = useState([]);
@@ -10,64 +12,88 @@ export default function CartPage() {
     setCart(getCart());
   }, []);
 
-  const handleCheckout = () => {
+  const handleCheckout = (e) => {
+    e.preventDefault(); // Prevent default form submission
     alert("Checkout complete!");
     clearCart();
     setCart([]);
   };
 
+  const handleRemoveItem = (indexToRemove) => {
+    const updatedCart = cart.filter((_, index) => index !== indexToRemove);
+    setCart(updatedCart);
+  };
+
   return (
-    <div style={{ padding: "2rem", backgroundColor: "#f5f5f5", color: "#333" }}>
-      <h1>Shopping Cart</h1>
-      {cart.length > 0 ? (
-        <div>
-          <ul>
-            {cart.map((item, index) => (
-              <li
-                key={index}
-                style={{
-                  borderBottom: "1px solid #ccc",
-                  padding: "1rem 0",
-                  listStyle: "none",
-                }}
-              >
-                <img
-                  src={item.PROD_IMG}
-                  alt={item.PROD_NAME}
-                  style={{ width: "50px", marginRight: "1rem" }}
-                />
-                <strong>{item.PROD_NAME}</strong> - ${item.PROD_PRICE}
-                <p>{item.PROD_DESCRIP}</p>
-              </li>
-            ))}
-          </ul>
+    <div className={styles.cartContainer}>
+      {/* Add Navbar Component here */}
+      <Navbar />
+      
+      <h1 className={styles.cartTitle}>Shopping Cart</h1>
+      <div className={styles.cartFormsContainer}>
+        {/* Product Info Form */}
+        <div className={styles.productInfoForm}>
+          <h2>Product Info</h2>
+          {cart.length > 0 ? (
+            <ul className={styles.productInfoList}>
+              {cart.map((item, index) => (
+                <li key={index} className={styles.productInfoItem}>
+                  <img
+                    src={item.PROD_IMG}
+                    alt={item.PROD_NAME}
+                    className={styles.productImage}
+                  />
+                  <div className={styles.productDetails}>
+                    <strong>{item.PROD_NAME}</strong>
+                    <p>${item.PROD_PRICE}</p>
+                    <p>Quantity: 1</p>
+                  </div>
+                  <button
+                    onClick={() => handleRemoveItem(index)}
+                    className={styles.removeBtn}
+                  >
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>Your cart is empty.</p>
+          )}
+        </div>
+
+        {/* Checkout Form */}
+        <div className={styles.checkoutForm}>
+          <h2>Checkout</h2>
+          <form onSubmit={handleCheckout}>
+            <div className={styles.formGroup}>
+              <label htmlFor="email">Email:</label>
+              <input type="email" id="email" required className={styles.inputField} />
+            </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="cardholder">Cardholder Name:</label>
+              <input type="text" id="cardholder" required className={styles.inputField} />
+            </div>
+            <div className={styles.cvvExpirationContainer}>
+              <div className={styles.formGroup}>
+                <label htmlFor="cvv">CVV:</label>
+                <input type="text" id="cvv" required className={styles.inputField} />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="expiration">Expiration:</label>
+                <input type="text" id="expiration" placeholder="MM/YY" required className={styles.inputField} />
+              </div>
+            </div>
+            <button type="submit" className={styles.submitBtn}>Complete Checkout</button>
+          </form>
           <button
             onClick={handleCheckout}
-            style={{
-              marginTop: "2rem",
-              padding: "0.5rem 1rem",
-              backgroundColor: "transparent",
-              border: "2px solid #333",
-              borderRadius: "4px",
-              color: "#ff4081",
-              fontWeight: "bold",
-              cursor: "pointer",
-            }}
-            onMouseOver={(e) => {
-              e.target.style.backgroundColor = "#fff";
-              e.target.style.color = "#333";
-            }}
-            onMouseOut={(e) => {
-              e.target.style.backgroundColor = "transparent";
-              e.target.style.color = "#ff4081";
-            }}
+            className={styles.finalCheckoutBtn}
           >
-            Checkout
+            Final Checkout
           </button>
         </div>
-      ) : (
-        <p>Your cart is empty.</p>
-      )}
+      </div>
     </div>
   );
 }

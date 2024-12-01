@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from './components/Navbar';
+import Navbar from '../TEMPLATES/NAVBAR/Navbar';
 import RegisterForm from './components/RegisterForm';
 
 export default function RegisterPage() {

@@ -28,7 +28,7 @@ export default function Navbar() {
           <Link href="/customer" style={styles.link}>
             HOME
           </Link>
-          <Link href="/view_cart" style={styles.link}>
+          <Link href="/cart" style={styles.link}>
             CART
           </Link>
           <Link href="/mainLogin" style={styles.link}>
@@ -45,7 +45,7 @@ export default function Navbar() {
           <Link href="/customer" onClick={toggleMenu} style={styles.drawerLink}>
             HOME
           </Link>
-          <Link href="/view_cart" onClick={toggleMenu} style={styles.drawerLink}>
+          <Link href="/cart" onClick={toggleMenu} style={styles.drawerLink}>
             CART
           </Link>
           <Link href="/mainLogin" onClick={toggleMenu} style={styles.drawerLink}>

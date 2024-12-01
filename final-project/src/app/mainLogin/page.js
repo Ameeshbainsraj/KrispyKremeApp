@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import LoginForm from './components/LoginForm';  // Import the LoginForm component
-import Navbar from './components/Navbar'; // Import Navbar component
+import Navbar from '../TEMPLATES/NAVBAR/Navbar'; // Import Navbar component
 import styles from './style/style.module.css'; // Import the CSS Module
 
 export default function LoginPage() {

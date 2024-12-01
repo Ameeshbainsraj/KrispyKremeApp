@@ -1,70 +1,11 @@
-"use client"; // Ensure this is the first line of your component file
+"use client";
 
 import React, { useEffect, useState } from "react";
+import { addToCart } from "../../mainCart/utils/storage"; // Import addToCart function
 import { useRouter } from "next/navigation";
-import { useCart } from "../../view_cart/components/CartContext"; // Importing cart context
-import styles from "../../customer/styles/styles.module.css"; // Ensure correct styles import
-import productStyles from "../styles/productCardStyles.module.css"; // Adjusted for correct import
+import productStyles from "../styles/productCardStyles.module.css";
 
-const ProductPage = () => {
-  const { addToCart } = useCart(); // Access cart context
-  const router = useRouter();
-  const [products, setProducts] = useState([]); // State to manage products
-
-  // Fetch products from the API
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("../api/getProducts");
-        if (!response.ok) throw new Error("Failed to fetch products");
-        const data = await response.json();
-  
-        // Remove duplicates based on `_id`
-        const uniqueProducts = data.filter(
-          (product, index, self) =>
-            index === self.findIndex((p) => p._id === product._id)
-        );
-  
-        setProducts(uniqueProducts);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-    fetchProducts();
-  }, []); // Empty array ensures the effect runs only once when the component mounts
-  
-  const handleAddToCart = (product) => {
-    addToCart(product);
-    alert(`${product.PROD_NAME} added to cart!`);
-  };
-
-  const goToCart = () => {
-    router.push("../view_cart"); // Navigate to cart page
-  };
-
-  return (
-    <div className={styles.pageContainer}>
-      <h1>Products</h1>
-      {products.length === 0 ? (
-        <p>Loading products...</p>
-      ) : (
-        <div className={styles.productList}>
-          {products.map((product) => (
-            <ProductCard
-              key={product._id}
-              product={product}
-              onAddToCart={() => handleAddToCart(product)}
-            />
-          ))}
-        </div>
-      )}
-      <button className={styles.goToCartButton} onClick={goToCart}>
-        Go to Cart
-      </button>
-    </div>
-  );
-};
-
+// Define ProductCard OUTSIDE the main ProductPage component
 const ProductCard = ({ product, onAddToCart }) => (
   <div className={productStyles.card}>
     <img
@@ -78,12 +19,82 @@ const ProductCard = ({ product, onAddToCart }) => (
       <p className={productStyles.productPrice}>${product.PROD_PRICE}</p>
       <button
         className={productStyles.addToCartButton}
-        onClick={onAddToCart}
+        onClick={() => onAddToCart(product)}
       >
         Add to Cart
       </button>
     </div>
   </div>
 );
+
+const ProductPage = () => {
+  const router = useRouter();
+  const [products, setProducts] = useState([]);
+
+  // Fetch products from API with duplicate filtering
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("../api/getProducts");
+        if (!response.ok) throw new Error("Failed to fetch products");
+        const data = await response.json();
+
+        // Filter out duplicates
+        const uniqueProducts = data.filter(
+          (product, index, self) =>
+            index === self.findIndex((p) => p._id === product._id)
+        );
+
+        setProducts(uniqueProducts);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const handleAddToCart = (product) => {
+    addToCart(product); // Use addToCart from storage
+    alert(`${product.PROD_NAME} added to cart!`);
+  };
+
+  const goToCart = () => {
+    router.push("../cart");
+  };
+
+  return (
+    <div style={{ padding: "2rem", backgroundColor: "#f5f5f5", color: "#333" }}>
+      <h1>Products</h1>
+      {products.length === 0 ? (
+        <p>Loading products...</p>
+      ) : (
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          {products.map((product) => (
+            <ProductCard
+              key={product._id}
+              product={product}
+              onAddToCart={handleAddToCart}
+            />
+          ))}
+        </div>
+      )}
+      <button
+        onClick={goToCart}
+        style={{
+          marginTop: "2rem",
+          padding: "0.5rem 1rem",
+          backgroundColor: "#333",
+          color: "#fff",
+          border: "none",
+          borderRadius: "4px",
+          cursor: "pointer",
+        }}
+      >
+        Go to Cart
+      </button>
+    </div>
+  );
+};
 
 export default ProductPage;

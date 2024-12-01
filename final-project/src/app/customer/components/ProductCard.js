@@ -18,21 +18,21 @@ const ProductPage = () => {
         const response = await fetch("../api/getProducts");
         if (!response.ok) throw new Error("Failed to fetch products");
         const data = await response.json();
-
-        // Remove duplicates based on unique identifiers like `_id`
+  
+        // Remove duplicates based on `_id`
         const uniqueProducts = data.filter(
           (product, index, self) =>
             index === self.findIndex((p) => p._id === product._id)
         );
-
+  
         setProducts(uniqueProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
     fetchProducts();
-  }, []); // Empty dependency array ensures it runs only once
-
+  }, []); // Empty array ensures the effect runs only once when the component mounts
+  
   const handleAddToCart = (product) => {
     addToCart(product);
     alert(`${product.PROD_NAME} added to cart!`);

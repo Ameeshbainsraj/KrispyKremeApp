@@ -6,8 +6,7 @@ export default function Navbar() {
             <div style={styles.navbar}>
                 <h1 style={styles.logo}>Krispy Kreme</h1>
                 <div style={styles.navLinks}>
-                    <Link href="/" style={styles.link}>HOME</Link>
-                    <Link href="/customer" style={styles.link}>PRODUCTS</Link>
+                    <Link href="/customer" style={styles.link}>HOME</Link>
                     <Link href="/view_cart" style={styles.link}>CART</Link>
                     <Link href="/mainLogin" style={styles.link}>LOGIN / REGISTER</Link>
                    

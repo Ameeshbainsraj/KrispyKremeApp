@@ -1,19 +1,22 @@
+"use client";  // Mark the component as a client component
 
-'use client';
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
+// Create CartContext
 const CartContext = createContext();
 
-export const useCart = () => {
-  return useContext(CartContext);
-};
+// Custom hook to access the cart context
+export const useCart = () => useContext(CartContext);
 
+// CartProvider component to manage the cart state
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (product) => {
     setCartItems((prev) => {
-      const existingProduct = prev.find((item) => item.PROD_NAME === product.PROD_NAME);
+      const existingProduct = prev.find(
+        (item) => item.PROD_NAME === product.PROD_NAME
+      );
       if (existingProduct) {
         return prev.map((item) =>
           item.PROD_NAME === product.PROD_NAME

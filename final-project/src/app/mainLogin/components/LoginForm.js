@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import styles from '../style/loginForm.module.css';  // Import the CSS module
 
 export default function LoginForm({ onResponseMessage, onRedirect }) {
   const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ export default function LoginForm({ onResponseMessage, onRedirect }) {
     console.log("Form Data:", formData); // Log form data to check
 
     try {
-      const response = await fetch('../api/setLogin', {
+      const response = await fetch('http://localhost:5000/api/setLogin', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
@@ -32,6 +33,8 @@ export default function LoginForm({ onResponseMessage, onRedirect }) {
       const data = await response.json();
 
       if (data.success) {
+        // Session has been set on the server, now store in localStorage for client side
+        localStorage.setItem('sessionUser', formData.email);  // Storing email to localStorage
         onRedirect("../customer");
       } else {
         onResponseMessage(`Error: ${data.error}`);
@@ -42,25 +45,8 @@ export default function LoginForm({ onResponseMessage, onRedirect }) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '20px',
-        backgroundColor: '#1c1c1c',
-        borderRadius: '8px',
-        boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-      }}
-    >
-      <label
-        htmlFor="email"
-        style={{
-          fontWeight: 'bold',
-          color: '#B0B0B0',
-          marginBottom: '5px',
-        }}
-      >
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <label htmlFor="email" className={styles.label}>
         Email:
       </label>
       <input
@@ -70,24 +56,10 @@ export default function LoginForm({ onResponseMessage, onRedirect }) {
         value={formData.email}
         onChange={handleChange}
         required
-        style={{
-          padding: '10px',
-          marginBottom: '15px',
-          borderRadius: '5px',
-          border: '1px solid #B0B0B0',
-          backgroundColor: '#1c1c1c',
-          color: '#fff',
-        }}
+        className={styles.input}
       />
 
-      <label
-        htmlFor="password"
-        style={{
-          fontWeight: 'bold',
-          color: '#B0B0B0',
-          marginBottom: '5px',
-        }}
-      >
+      <label htmlFor="password" className={styles.label}>
         Password:
       </label>
       <input
@@ -97,34 +69,17 @@ export default function LoginForm({ onResponseMessage, onRedirect }) {
         value={formData.password}
         onChange={handleChange}
         required
-        style={{
-          padding: '10px',
-          marginBottom: '15px',
-          borderRadius: '5px',
-          border: '1px solid #B0B0B0',
-          backgroundColor: '#1c1c1c',
-          color: '#fff',
-        }}
+        className={styles.input}
       />
 
-      <button
-        type="submit"
-        style={{
-          marginTop: '20px',
-          padding: '10px',
-          backgroundColor: '#1c1c1c',
-          color: '#D40076',
-          border: '2px solid #D40076',
-          borderRadius: '5px',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          transition: 'background-color 0.3s ease',
-        }}
-        onMouseEnter={(e) => e.target.style.backgroundColor = '#333'}
-        onMouseLeave={(e) => e.target.style.backgroundColor = '#1c1c1c'}
-      >
+      <button type="submit" className={styles.button}>
         Login
       </button>
+
+      {/* Register Link */}
+      <div className={styles.registerLink}>
+        <a href="/mainRegister" className={styles.link}>Don't have an account? Register here</a>
+      </div>
     </form>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { addToCart } from "../../mainCart/utils/storage"; // Import addToCart function
+import { addToCart } from "../../cart/utils/storage"; // Import addToCart function
 import { useRouter } from "next/navigation";
 import productStyles from "../styles/productCardStyles.module.css";
 

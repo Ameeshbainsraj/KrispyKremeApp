@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../TEMPLATES/NAVBAR/Navbar";
 import ProductCard from "./components/ProductCard";
 import styles from "./styles/styles.module.css";
-import { CartProvider } from "../view_cart/components/CartContext";
+import { CartProvider } from "../customer/components/CartContext";
 
 export default function CustomerPage() {
   const [products, setProducts] = useState([]);

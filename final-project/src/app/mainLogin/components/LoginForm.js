@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { TextField, Button, Box, Link } from '@mui/material'; // Import MUI components
 import styles from '../style/loginForm.module.css';  // Import the CSS module
 
 export default function LoginForm({ onResponseMessage, onRedirect }) {
@@ -45,41 +46,45 @@ export default function LoginForm({ onResponseMessage, onRedirect }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <label htmlFor="email" className={styles.label}>
-        Email:
-      </label>
-      <input
-        type="email"
-        name="email"
-        id="email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-        className={styles.input}
-      />
+    <div className={styles.formContainer}> {/* Apply the centering class */}
+      <form onSubmit={handleSubmit} className={styles.form}>
+        
+        <TextField
+          label="Email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          fullWidth
+          variant="outlined"
+          className={styles.input}
+          margin="normal"
+        />
 
-      <label htmlFor="password" className={styles.label}>
-        Password:
-      </label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        value={formData.password}
-        onChange={handleChange}
-        required
-        className={styles.input}
-      />
+        <label htmlFor="password" className={styles.label}>Password</label>
+        <TextField
+          label="Password"
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+          fullWidth
+          variant="outlined"
+          className={styles.input}
+          margin="normal"
+        />
 
-      <button type="submit" className={styles.button}>
-        Login
-      </button>
+        <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }} className={styles.button}>
+          Login
+        </Button>
 
-      {/* Register Link */}
-      <div className={styles.registerLink}>
-        <a href="/mainRegister" className={styles.link}>Don't have an account? Register here</a>
-      </div>
-    </form>
+        <Box mt={2} textAlign="center" className={styles.registerLink}>
+          <Link href="/mainRegister" underline="hover" className={styles.link}>
+            Don't have an account? Register here
+          </Link>
+        </Box>
+      </form>
+    </div>
   );
 }

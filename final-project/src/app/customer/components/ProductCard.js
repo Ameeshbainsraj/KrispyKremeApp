@@ -39,13 +39,18 @@ const ProductPage = () => {
         if (!response.ok) throw new Error("Failed to fetch products");
         const data = await response.json();
 
-        // Filter out duplicates
-        const uniqueProducts = data.filter(
-          (product, index, self) =>
-            index === self.findIndex((p) => p._id === product._id)
-        );
+        // Filter out duplicates based on unique _id
+        const uniqueProducts = [];
+        const seenIds = new Set();
 
-        setProducts(uniqueProducts);
+        data.forEach((product) => {
+          if (!seenIds.has(product._id)) {
+            seenIds.add(product._id);
+            uniqueProducts.push(product);
+          }
+        });
+
+        setProducts(uniqueProducts); // Set all unique products
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -72,7 +77,7 @@ const ProductPage = () => {
         <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
           {products.map((product) => (
             <ProductCard
-              key={product._id}
+              key={product._id} // Use unique _id as the key
               product={product}
               onAddToCart={handleAddToCart}
             />

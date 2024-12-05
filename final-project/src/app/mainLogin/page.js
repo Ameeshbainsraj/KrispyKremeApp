@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import LoginForm from './components/LoginForm';  // Import the LoginForm component
 import Navbar from '../TEMPLATES/NAVBAR/Navbar'; // Import Navbar component
+import { Container, Typography, Box } from '@mui/material';  // Import MUI components
 import styles from './style/style.module.css'; // Import the CSS Module
 
 export default function LoginPage() {
@@ -24,25 +25,36 @@ export default function LoginPage() {
             <Navbar /> 
 
             {/* Content container with the login form */}
-            <div className={styles.formWrapper}>
-                <h2 className={styles.loginHeader}>Login</h2>
+            <Container component="main" maxWidth="xs">
+                <Box 
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        padding: 3,
+                        boxShadow: 3,
+                        borderRadius: 2,
+                    }}
+                >
+                    <Typography variant="h5" className={styles.loginHeader}>
+                        Login
+                    </Typography>
 
-                <LoginForm 
-                    onResponseMessage={handleResponseMessage} 
-                    onRedirect={handleRedirect} 
-                />
+                    <LoginForm 
+                        onResponseMessage={handleResponseMessage} 
+                        onRedirect={handleRedirect} 
+                    />
 
-                {responseMessage && (
-                    <p
-                        style={{
-                            marginTop: '20px',
-                            color: responseMessage.startsWith('Error') ? 'red' : 'green',
-                        }}
-                    >
-                        {responseMessage}
-                    </p>
-                )}
-            </div>
+                    {responseMessage && (
+                        <Typography 
+                            variant="body2" 
+                            sx={{ mt: 2, color: responseMessage.startsWith('Error') ? 'red' : 'green' }}
+                        >
+                            {responseMessage}
+                        </Typography>
+                    )}
+                </Box>
+            </Container>
         </div>
     );
 }

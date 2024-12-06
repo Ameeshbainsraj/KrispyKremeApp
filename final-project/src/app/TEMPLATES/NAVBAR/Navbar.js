@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect, useState } from "react";
 import { AppBar, Box, Toolbar, IconButton, Typography } from "@mui/material";
@@ -22,22 +22,20 @@ export default function Navbar() {
   }, []);
 
   const handleLogout = () => {
-    try{
-    sessionStorage.removeItem("user"); // Clear session data
-    setIsLoggedIn(false); // Update the login state
-    router.push("/logout"); // Redirect to logout page
-    console.log("Session ended!!!!!!!!!!!"); // Log to console
-    console.log("Session ended!!!!!!!!!!!"); // Log to console
-    console.log("Session ended!!!!!!!!!!!"); // Log to console
+    try {
+      sessionStorage.removeItem("user"); // Clear session data
+      setIsLoggedIn(false); // Update the login state
+      router.push("/logout"); // Redirect to logout page
+      console.log("Session ended!!!!!!!!!!!"); // Log to console
     } catch (error) {
-
       console.error("Error logging out", error);
     }
   };
 
   const menuItems = [
     { name: "Home", icon: <HomeIcon />, link: "/customer" }, // Added Home icon
-    { name: "Cart", icon: <ShoppingCartIcon />, link: "/cart" },
+    // Only show Cart if logged in
+    isLoggedIn && { name: "Cart", icon: <ShoppingCartIcon />, link: "/cart" },
     // Only show login icon if logged out
     !isLoggedIn && { name: "Login/Register", icon: <AccountCircleIcon />, link: "/loginExample" },
     // Only show logout icon if logged in
@@ -46,8 +44,6 @@ export default function Navbar() {
       icon: <ExitToAppIcon />,
       onClick: handleLogout, // Log out and clear session
     },
-
-
   ];
 
   return (
@@ -70,8 +66,6 @@ export default function Navbar() {
             Krispy Kreme
           </Typography>
 
-
-          
           {/* Desktop Menu */}
           <Box sx={{ display: "flex", alignItems: "center" }}>
             {menuItems.map(

@@ -1,68 +1,71 @@
-/* Global page container */
+/* ========== Global Page Container ========== */
 .pageContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  gap: 20px;
-  position: relative;
+  display: flex; /* Flex layout for vertical stacking of content */
+  flex-direction: column; /* Aligns content in a column */
+  align-items: center; /* Centers content horizontally */
+  padding: 20px; /* Adds padding around the container */
+  gap: 20px; /* Adds space between child elements */
+  position: relative; /* Allows pseudo-elements to be positioned absolutely */
 }
 
 .pageContainer::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('https://th.bing.com/th/id/OIP.5HLtC67d5qvCFUMXSk_MVgHaE7?w=267&h=180&c=7&r=0&o=5&pid=1.7'); /* Add your image URL here */
-  background-size: cover;
-  background-position: center;
-  filter: blur(10px);
-  z-index: -1;
+  content: ""; /* Empty pseudo-element for the background effect */
+  position: absolute; /* Positioned relative to the .pageContainer */
+  top: 0; /* Aligns to the top edge */
+  left: 0; /* Aligns to the left edge */
+  right: 0; /* Aligns to the right edge */
+  bottom: 0; /* Aligns to the bottom edge */
+  background-image: url('https://th.bing.com/th/id/OIP.5HLtC67d5qvCFUMXSk_MVgHaE7?w=267&h=180&c=7&r=0&o=5&pid=1.7'); /* Background image URL */
+  background-size: cover; /* Ensures the image covers the entire area */
+  background-position: center; /* Centers the image within the container */
+  filter: blur(10px); /* Applies a blur effect to the background */
+  z-index: -1; /* Pushes the pseudo-element behind other content */
 }
 
+/* ========== Weather Box ========== */
 .weatherBox {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 600px;
-  padding: 15px;
-  border-radius: 8px;
-  background-color: #dd0f8e; /* Matches the primary color */
-  color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  display: flex; /* Flexbox for centering content */
+  flex-direction: column; /* Stacks child elements vertically */
+  align-items: center; /* Centers content horizontally */
+  justify-content: center; /* Centers content vertically */
+  width: 100%; /* Full width of the parent container */
+  max-width: 600px; /* Restricts maximum width */
+  padding: 15px; /* Adds inner spacing */
+  border-radius: 8px; /* Rounds the corners */
+  background-color: #dd0f8e; /* Primary color for the box */
+  color: white; /* Text color for contrast */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+  text-align: center; /* Centers text within the box */
 }
 
 .weatherBox h3 {
-  margin: 0 0 10px 0;
-  font-size: 1.5rem;
-  font-weight: bold;
+  margin: 0 0 10px 0; /* Adds bottom margin only */
+  font-size: 1.5rem; /* Larger font for heading */
+  font-weight: bold; /* Bold text for emphasis */
 }
 
 .weatherBox p {
-  font-size: 1.2rem;
-  margin: 0;
+  font-size: 1.2rem; /* Slightly larger font size */
+  margin: 0; /* Resets margin for consistency */
 }
 
 .weatherBox img {
-  margin-top: 10px;
-  height: 50px;
-  width: 50px;
+  margin-top: 10px; /* Adds space above the image */
+  height: 50px; /* Fixed height for icons */
+  width: 50px; /* Fixed width for icons */
 }
 
+/* ========== Product Page ========== */
 .productPage {
-  width: 100%;
-  max-width: 1200px;
-  margin-top: 20px;
+  width: 100%; /* Full width of the parent container */
+  max-width: 1200px; /* Restricts maximum width for better readability */
+  margin-top: 20px; /* Adds space above the product page */
 }
 
+/* ========== Product Grid ========== */
 .productGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+  display: grid; /* Grid layout for products */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid with flexible column sizing */
+  gap: 20px; /* Space between grid items */
+  margin-top: 20px; /* Adds space above the grid */
 }

@@ -22,12 +22,17 @@ export default function Navbar() {
   }, []);
 
   const handleLogout = () => {
+    try{
     sessionStorage.removeItem("user"); // Clear session data
     setIsLoggedIn(false); // Update the login state
     router.push("/logout"); // Redirect to logout page
     console.log("Session ended!!!!!!!!!!!"); // Log to console
     console.log("Session ended!!!!!!!!!!!"); // Log to console
     console.log("Session ended!!!!!!!!!!!"); // Log to console
+    } catch (error) {
+
+      console.error("Error logging out", error);
+    }
   };
 
   const menuItems = [
@@ -41,6 +46,8 @@ export default function Navbar() {
       icon: <ExitToAppIcon />,
       onClick: handleLogout, // Log out and clear session
     },
+
+
   ];
 
   return (
@@ -63,6 +70,8 @@ export default function Navbar() {
             Krispy Kreme
           </Typography>
 
+
+          
           {/* Desktop Menu */}
           <Box sx={{ display: "flex", alignItems: "center" }}>
             {menuItems.map(

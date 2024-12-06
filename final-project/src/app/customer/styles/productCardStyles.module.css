@@ -1,70 +1,80 @@
+/* ========== Card Component Styling ========== */
 .card {
-  background-color: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  width: 300px; /* Fixed width for the card */
-  margin: 20px auto; /* Center the card horizontally and add space */
+  background-color: #fff; /* White background for the card */
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Prevents content from overflowing outside the card */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for a lifted appearance */
+  transition: transform 0.3s ease; /* Smooth transition for hover effect */
+  display: flex; /* Enables flexbox for card content layout */
+  flex-direction: column; /* Stack content vertically */
+  width: 300px; /* Fixed width for uniform card size */
+  margin: 20px auto; /* Center card horizontally with margin spacing */
 }
+
+/* ========== Card Container Styling ========== */
 .card-container {
-  display: flex;
-  flex-wrap: wrap; /* Allows cards to wrap to the next line if the container's width is too small */
-  gap: 20px; /* Adds space between the cards */
-  justify-content: center; /* Centers the cards in the container */
+  display: flex; /* Enables flexbox for the card layout */
+  flex-wrap: wrap; /* Allows cards to wrap to the next line if needed */
+  gap: 20px; /* Adds space between cards */
+  justify-content: center; /* Centers cards within the container */
 }
 
-
+/* ========== Card Hover Effect ========== */
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.05); /* Slightly enlarges the card when hovered */
 }
 
+/* ========== Product Image Styling ========== */
 .productImage {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+  width: 100%; /* Ensures the image spans the full width of the card */
+  height: 200px; /* Fixed height for consistent image display */
+  object-fit: cover; /* Maintains aspect ratio and fills the image box */
 }
 
+/* ========== Product Details Section ========== */
 .productDetails {
-  padding: 20px;
-  text-align: center;
+  padding: 20px; /* Adds padding around the details section */
+  text-align: center; /* Centers the text within the section */
 }
 
+/* ========== Product Name Styling ========== */
 .productName {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #c2185b;
+  font-size: 18px; /* Sets font size for product name */
+  font-weight: bold; /* Makes the text bold */
+  margin-bottom: 10px; /* Adds space below the product name */
+  color: #c2185b; /* Dark pink color for the product name */
 }
 
+/* ========== Product Description Styling ========== */
 .productDescription {
-  font-size: 14px;
-  font-weight: BOLD;
-  text-align: justify;
-  color: #555;
-  margin-bottom: 15px;
+  font-size: 14px; /* Smaller font size for description */
+  font-weight: bold; /* Ensures the text is bold */
+  text-align: justify; /* Justifies text for a neat appearance */
+  color: #555; /* Medium gray color for readability */
+  margin-bottom: 15px; /* Adds spacing below the description */
 }
 
+/* ========== Product Price Styling ========== */
 .productPrice {
-  font-size: 16px;
-  font-weight: bold;
-  color: #e91e63; /* Dark Pink */
-  margin-bottom: 15px;
+  font-size: 16px; /* Sets font size for the price */
+  font-weight: bold; /* Emphasizes the price text */
+  color: #e91e63; /* Dark pink color for price */
+  margin-bottom: 15px; /* Adds spacing below the price */
 }
 
+/* ========== Add to Cart Button Styling ========== */
 .addToCartButton {
-  background-color: #e91e63; /* Dark Pink */
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  background-color: #e91e63; /* Dark pink background */
+  color: #fff; /* White text for contrast */
+  border: none; /* Removes default button border */
+  padding: 10px 20px; /* Adds padding for a larger click area */
+  font-size: 16px; /* Sets font size for button text */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+  border-radius: 5px; /* Slightly rounds button corners */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
 }
 
+/* ========== Add to Cart Button Hover Effect ========== */
 .addToCartButton:hover {
-  background-color: #c2185b; /* Darker pink for hover */
+  background-color: #c2185b; /* Darker pink color for hover state */
 }

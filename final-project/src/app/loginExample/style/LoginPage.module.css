@@ -1,0 +1,59 @@
+/* Style for the login container */
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, black 50%, #8B1A4B 50%); /* Half black, half dark pink */
+}
+
+/* Style for the login form */
+.loginForm {
+  background-color: grey;
+  padding: 4rem;
+  border-radius: 2rem;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  background-color: #767B91;
+  border: 2px solid white;
+  color: white;
+}
+
+/* Style for input fields */
+.inputField {
+  margin-top: 1rem;
+  border: 2px solid white;
+  color: white;
+}
+
+/* Style for the alert message */
+.alert {
+  margin-top: 1rem;
+}
+
+/* Style for the login button */
+.loginButton {
+  margin-top: 20px;
+  background-color: #767B91;
+  border: 2px solid white;
+  color: white;
+}
+
+.loginButton:hover {
+  background-color: #F7C59F;
+  color: darkpink;
+}
+
+/* Style for the register link */
+.registerLink {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.registerLink:hover {
+  background-color: black;
+  color: white;
+  padding: 0.2rem;
+  border-radius: 5px;
+}

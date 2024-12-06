@@ -1,0 +1,8 @@
+.receiptContainer {
+    background: linear-gradient(to right, black 50%, #d5006d 50%);
+    min-height: 100vh; /* Ensure it covers the entire viewport */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

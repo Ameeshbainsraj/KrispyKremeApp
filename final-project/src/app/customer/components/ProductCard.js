@@ -1,25 +1,41 @@
-"use client";
+"use client"; // Mark the component as a client component, enabling interactivity in React.
 
+// ** Import Dependencies and Styles **
 import React, { useEffect, useState } from "react";
-import { addToCart } from "../../cart/utils/storage"; // Import addToCart function
-import { useRouter } from "next/navigation";
-import productStyles from "../styles/productCardStyles.module.css";
+import { addToCart } from "../../cart/utils/storage"; // Import the addToCart utility function
+import { useRouter } from "next/navigation"; // Import Next.js router for navigation
+import productStyles from "../styles/productCardStyles.module.css"; // Import module-specific CSS styles
 
-// Define ProductCard OUTSIDE the main ProductPage component
+
+
+
+// ** ProductCard Component **
+// Displays individual product details and provides an "Add to Cart" button.
 const ProductCard = ({ product, onAddToCart }) => (
+
+
   <div className={productStyles.card}>
+    {/* Product Image */}
     <img
-      src={product.PROD_IMG}
-      alt={product.PROD_NAME}
+      src={product.PROD_IMG} // Product image URL
+      alt={product.PROD_NAME} // Alt text for accessibility
       className={productStyles.productImage}
     />
+
+
+
+    {/* Product Details */}
     <div className={productStyles.productDetails}>
-      <h3 className={productStyles.productName}>{product.PROD_NAME}</h3>
-      <p className={productStyles.productDescription}>{product.PROD_DESCRIP}</p>
-      <p className={productStyles.productPrice}>${product.PROD_PRICE}</p>
+      <h3 className={productStyles.productName}>{product.PROD_NAME}</h3> {/* Product Name */}
+      <p className={productStyles.productDescription}>{product.PROD_DESCRIP}</p> {/* Product Description */}
+      <p className={productStyles.productPrice}>${product.PROD_PRICE}</p> {/* Product Price */}
+
+
+      
+      {/* Add to Cart Button */}
       <button
         className={productStyles.addToCartButton}
-        onClick={() => onAddToCart(product)}
+        onClick={() => onAddToCart(product)} // Trigger the onAddToCart function when clicked
       >
         Add to Cart
       </button>
@@ -27,79 +43,87 @@ const ProductCard = ({ product, onAddToCart }) => (
   </div>
 );
 
-const ProductPage = () => {
-  const router = useRouter();
-  const [products, setProducts] = useState([]);
 
-  // Fetch products from API with duplicate filtering
+
+
+// ** ProductPage Component **
+// Main component to fetch and display all products, allowing users to add them to the cart.
+const ProductPage = () => {
+  const router = useRouter(); // Router instance for navigation
+  const [products, setProducts] = useState([]); // State to store fetched products
+
+  // ** Fetch Products on Component Mount **
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("../api/getProducts");
-        if (!response.ok) throw new Error("Failed to fetch products");
-        const data = await response.json();
+        const response = await fetch("../api/getProducts"); // API endpoint for fetching products
+        if (!response.ok) throw new Error("Failed to fetch products"); // Handle non-200 responses
+        const data = await response.json(); // Parse response as JSON
 
-        // Filter out duplicates based on unique _id
+        // Filter out duplicate products based on their unique _id
         const uniqueProducts = [];
         const seenIds = new Set();
 
         data.forEach((product) => {
-          if (!seenIds.has(product._id)) {
-            seenIds.add(product._id);
-            uniqueProducts.push(product);
+          if (!seenIds.has(product._id)) { // Check if the product _id is already seen
+            seenIds.add(product._id); // Mark the _id as seen
+            uniqueProducts.push(product); // Add unique product to the list
           }
         });
 
-        setProducts(uniqueProducts); // Set all unique products
+        setProducts(uniqueProducts); // Update state with unique products
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error("Error fetching products:", error); // Log errors
       }
     };
 
-    fetchProducts();
-  }, []);
+    fetchProducts(); // Trigger product fetching
+  }, []); // Empty dependency array ensures this runs once on mount
 
+
+
+
+
+  // ** Handle Add to Cart **
   const handleAddToCart = (product) => {
-    addToCart(product); // Use addToCart from storage
-    alert(`${product.PROD_NAME} added to cart!`);
+    addToCart(product); // Use the imported addToCart utility to store the product in the cart
+    alert(`${product.PROD_NAME} added to cart!`); // Notify the user
   };
 
+
+
+
+
+  // ** Navigate to Cart Page **
   const goToCart = () => {
-    router.push("../cart");
+    router.push("../cart"); // Redirect the user to the cart page
   };
 
+
+
+
+
+  // ** Render Component UI **
   return (
-    <div style={{ padding: "2rem", backgroundColor: "#f5f5f5", color: "#333" }}>
-      <h1>Products</h1>
-      {products.length === 0 ? (
+    <div style={{ padding: "2rem", backgroundColor: "transparent", color: "#333" }}>
+      
+      {products.length === 0 ? ( 
+        // Show loading message if products are not yet loaded
         <p>Loading products...</p>
       ) : (
+        // Display product cards in a flexible grid layout
         <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
           {products.map((product) => (
             <ProductCard
-              key={product._id} // Use unique _id as the key
-              product={product}
-              onAddToCart={handleAddToCart}
+              key={product._id} // Use unique product _id as the key
+              product={product} // Pass product details to the ProductCard
+              onAddToCart={handleAddToCart} // Pass the add-to-cart handler
             />
           ))}
         </div>
       )}
-      <button
-        onClick={goToCart}
-        style={{
-          marginTop: "2rem",
-          padding: "0.5rem 1rem",
-          backgroundColor: "#333",
-          color: "#fff",
-          border: "none",
-          borderRadius: "4px",
-          cursor: "pointer",
-        }}
-      >
-        Go to Cart
-      </button>
     </div>
   );
 };
 
-export default ProductPage;
+export default ProductPage; // Export the main component as default

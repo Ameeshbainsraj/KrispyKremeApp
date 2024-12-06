@@ -38,8 +38,12 @@ export default function RegisterPage() {
         }}
       />
       
+
+
       {/* Foreground Content */}
       <Navbar /> // Include the Navbar component
+
+
       <Box
         sx={{
           zIndex: 2, // Ensure form appears above the background
@@ -49,7 +53,10 @@ export default function RegisterPage() {
           width: '90%', // Set the width to 90% of the parent container
           maxWidth: 600, // Set maximum width to 600px
           boxShadow: 0, // Remove box shadow
-          margin: '-5px auto' // Apply 5px margin on top and bottom, auto left/right
+          
+          marginTop: '20px'
+
+        
         }}
 
         // Include the RegisterForm component
@@ -57,6 +64,9 @@ export default function RegisterPage() {
 
         
         <RegisterForm /> 
+
+
+        
       </Box>
     </Box>
   );

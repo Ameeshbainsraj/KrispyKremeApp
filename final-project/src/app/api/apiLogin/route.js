@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import { getCustomSession } from "../../../api/sessionCode";
+import { getCustomSession } from "../sessionCode"; // Import the function to get the session
 
 export async function POST(req, res) {
   try {
@@ -44,9 +44,8 @@ export async function POST(req, res) {
       const session = await getCustomSession();
       session.email = user.email;
       session.role = user.role || "customer";  // Default to 'customer' if no role is found
-      await session.save();
 
-      console.log("Session started");
+      console.log("Session started: ", session);
 
       // Send the role and login status in the response
       return new Response(

@@ -1,123 +1,100 @@
-/* cartPage.module.css */
-.cartContainer {
-  padding: 140px;
-  padding-top: 90px;
-  background-color: #333; /* Dark grey background for the container */
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.cartTitle {
-  font-size: 2rem;
-  color: #ff1493; /* Dark pink color for the title */
-}
-
-.cartFormsContainer {
+.checkoutFormContainer {
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  justify-content: center; /* Horizontally centers the form */
+  align-items: center; /* Vertically centers the form */
+  min-height: 100vh; /* Full height of the viewport */
+  position: relative;
+  width: 100%; /* Ensure full width */
+  overflow: hidden; /* Prevents the background from overflowing */
 }
 
-.productInfoForm,
-.checkoutForm {
-  padding: 10px;
-  border: 1px solid #ddd;
-  background-color: #444; /* Dark grey background for forms */
-  flex: 1;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.productInfoList {
-  list-style: none;
-  padding: 0;
-}
-
-.productInfoItem {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 10px;
-}
-
-.productImage {
-  width: 50px;
-}
-
-.productDetails {
-  flex: 1;
-}
-
-.removeBtn {
-  background-color: red;
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
+.checkoutFormContainer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://th.bing.com/th/id/R.a1fa739e2d90214d54335faaee2f8d47?rik=RW%2fNJIrTt2ZfzQ&riu=http%3a%2f%2fwallpapercave.com%2fwp%2fyFk2QjB.png&ehk=uFt5TITu5IoSV0%2bRWM2NjEuJ76i1geDk%2bRIr%2f4SQzks%3d&risl=&pid=ImgRaw&r=0') center center no-repeat; /* Set your background image */
+  background-size: cover;
+  filter: blur(8px); /* Apply blur to the background */
+  z-index: -1; /* Make sure the background is behind the form */
+  opacity: 0.5; /* Adjust transparency of the background */
 }
 
 .checkoutForm {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  justify-content: center; /* Centers content vertically inside the form */
+  align-items: center; /* Centers content horizontally inside the form */
+  max-width: 600px;
+  width: 100%; /* Ensure the form doesn’t exceed the screen width */
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.7); /* Solid background for the form */
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+  border: 2px solid #ffffff; /* White outline */
+  z-index: 1; /* Ensure form stays on top */
+  margin: 0 auto; /* This ensures the form is centered horizontally */
+  text-align: center; /* Center text inside the form */
+  margin-right: 700px;
 }
 
-.formGroup {
-  margin-bottom: 1rem;
+
+.cartTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
-.inputField {
+.productInfoForm {
   width: 100%;
-  padding: 0.75rem;
-  margin-top: 0.25rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
 }
 
-.cvvExpirationContainer {
+.productInfoList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.productInfoItem {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
 }
 
-.submitBtn {
-  padding: 1rem;
-  background-color: #333;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
+.productImage img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
-.finalCheckoutBtn {
-  margin-top: 2rem;
-  padding: 0.75rem;
-  background-color: #333;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
+.productDetails {
+  flex-grow: 1;
+  margin-left: 15px;
 }
 
-.cartTotals {
-  margin-top: 20px;
-  font-size: 18px;
-}
-
-.cartTotals p {
-  margin: 5px 0;
+.removeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .finalCheckoutBtn {
+  width: 100%;
+  padding: 10px;
   margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #541dd3;
-  color: white;
-  border: none;
-  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+
+  color: darkorchid;
+  background-color: black;
+  border: 2px solid #ffffff; /* White outline */
+  
+
 }
 
-.finalCheckoutBtn:hover {
-  background-color: #45a049;
-}
+

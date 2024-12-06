@@ -1,4 +1,6 @@
-import { getCustomSession } from "../sessionCode";
+
+
+import { getCustomSession } from "../../api/sessionCode";
 
 export async function GET(req, res) {
   // Retrieve the session

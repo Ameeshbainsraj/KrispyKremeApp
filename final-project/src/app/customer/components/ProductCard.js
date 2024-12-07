@@ -17,28 +17,39 @@ const ProductCard = ({ product, onAddToCart }) => (
   <div className={productStyles.card}>
     {/* Product Image */}
     <img
+
       src={product.PROD_IMG} // Product image URL
+
       alt={product.PROD_NAME} // Alt text for accessibility
+      
       className={productStyles.productImage}
+
     />
 
 
 
     {/* Product Details */}
     <div className={productStyles.productDetails}>
+
       <h3 className={productStyles.productName}>{product.PROD_NAME}</h3> {/* Product Name */}
+
       <p className={productStyles.productDescription}>{product.PROD_DESCRIP}</p> {/* Product Description */}
+
       <p className={productStyles.productPrice}>${product.PROD_PRICE}</p> {/* Product Price */}
 
 
       
       {/* Add to Cart Button */}
       <button
+
         className={productStyles.addToCartButton}
+
         onClick={() => onAddToCart(product)} // Trigger the onAddToCart function when clicked
+
       >
         Add to Cart
       </button>
+
     </div>
   </div>
 );

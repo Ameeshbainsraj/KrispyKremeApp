@@ -40,6 +40,7 @@ export async function POST(req, res) {
     if (user.password === password) {
       console.log("Login valid");
 
+
       // Start a session
       const session = await getCustomSession();
       session.email = user.email;
@@ -47,11 +48,16 @@ export async function POST(req, res) {
 
       console.log("Session started: ", session);
 
+
+
+
       // Send the role and login status in the response
       return new Response(
         JSON.stringify({ data: "valid", role: session.role }),
         { status: 200 }
+
       );
+      
     } else {
       console.log("Invalid password");
       return new Response(

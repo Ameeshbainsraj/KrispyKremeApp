@@ -38,6 +38,7 @@ const useLogin = (router) => {
 
       // Parse the JSON response
       const data = await response.json();
+      
       console.log(data); // Log the response data for debugging
 
       // Check if the login credentials are valid

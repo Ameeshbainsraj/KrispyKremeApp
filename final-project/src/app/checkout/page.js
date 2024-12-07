@@ -28,6 +28,9 @@ export default function CheckoutPage() {
   const shippingFee = cart.length > 0 ? 5.99 : 0;
   const total = subtotal + shippingFee;
 
+
+
+  //HANDLE CHECKOUT 
   const handleCheckout = async (e) => {
     e.preventDefault();
 
@@ -49,6 +52,9 @@ export default function CheckoutPage() {
     // Save order details to localStorage
     localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
 
+
+    //FETCHING THE SETORDER, and using api to send info to the databse and say checkout complete , 
+    //adn going to a receipt page where it gets the api for setOrder and displays it on receipt 
     try {
       const response = await fetch('../api/setOrder', {
         method: 'POST',
